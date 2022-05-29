@@ -293,14 +293,20 @@ public class GameActivity extends AppCompatActivity implements View.OnClickListe
 
         int score = 0;
 
+        // restablir la puntuacio Payer1
+        String[] parametros1={x};
 
-        // restablir la puntuacio
-        String[] parametros={x};
+        ContentValues values1 = new ContentValues();
+        values1.put(Utilidades.CAMPO_PLAYER1,score);
+        db.update(Utilidades.TABLA_PUNTUACIO,values1,Utilidades.CAMPO_USUARIO+"=?",parametros1);
+
+
+        // restablir la puntuacio Player2
+        String[] parametros2={x};
+        
         ContentValues values2 = new ContentValues();
         values2.put(Utilidades.CAMPO_PLAYER2,score);
-        db.update(Utilidades.TABLA_PUNTUACIO,values2,Utilidades.CAMPO_USUARIO+"=?",parametros);
-
-
+        db.update(Utilidades.TABLA_PUNTUACIO,values2,Utilidades.CAMPO_USUARIO+"=?",parametros2);
 
         Toast.makeText(getApplicationContext(),"Reset",Toast.LENGTH_LONG).show();
 
