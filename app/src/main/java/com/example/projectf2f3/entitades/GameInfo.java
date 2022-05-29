@@ -4,18 +4,9 @@ import java.io.Serializable;
 
 public class GameInfo implements Serializable {
 
-    private Integer Id;
     private String User;
     private Integer Player1;
     private Integer Player2;
-
-    public Integer getId() {
-        return Id;
-    }
-
-    public void setId(Integer id) {
-        Id = id;
-    }
 
     public String getUser() {
         return User;
@@ -43,8 +34,7 @@ public class GameInfo implements Serializable {
 
 
 
-    public GameInfo(Integer id, String user, Integer player1, Integer player2) {
-        Id = id;
+    public GameInfo(String user, Integer player1, Integer player2) {
         User = user;
         Player1 = player1;
         Player2 = player2;
