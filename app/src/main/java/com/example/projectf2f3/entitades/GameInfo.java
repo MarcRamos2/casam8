@@ -32,8 +32,6 @@ public class GameInfo implements Serializable {
         Player2 = player2;
     }
 
-
-
     public GameInfo(String user, Integer player1, Integer player2) {
         User = user;
         Player1 = player1;

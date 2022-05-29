@@ -30,7 +30,7 @@ public class GameActivity extends AppCompatActivity implements View.OnClickListe
     TextView play1,play2;
     MediaPlayer player;
     Animation play;
-    Button buttonPlay,getPreviousRecord;
+    Button buttonPlay, restart, resetScore;
 
     public boolean musicatorn = false ;
 
@@ -65,8 +65,7 @@ public class GameActivity extends AppCompatActivity implements View.OnClickListe
         // Variable bool que controla el torn de la musica
         // Iniciem amb false
         musicatorn = false;
-
-
+        getScorePlayers();
         // Aixo fa que nomes faci un cop l'insert quan instale la aplicacio
         SharedPreferences settings = getSharedPreferences("PREFS_NAME", 0);
         mboolean = settings.getBoolean("FIRST_RUN", false);
@@ -78,11 +77,20 @@ public class GameActivity extends AppCompatActivity implements View.OnClickListe
             editor.commit();
         }
 
-        getPreviousRecord = (Button) findViewById(R.id.getPreviousRecord);
-        getPreviousRecord.setOnClickListener(new View.OnClickListener() {
+        restart = (Button) findViewById(R.id.restart);
+        restart.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                getScorePlayers();
+                restartGame();
+            }
+        });
+
+
+        resetScore = (Button) findViewById(R.id.resetScore);
+        restart.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                restartGame();
             }
         });
 
@@ -275,7 +283,28 @@ public class GameActivity extends AppCompatActivity implements View.OnClickListe
         Toast.makeText(getApplicationContext(),"Ya se actualizó el usuario",Toast.LENGTH_LONG).show();
 
         db.close();
+    }
 
+    private void resetScore() {
+
+        SQLiteDatabase db = conn.getWritableDatabase();
+
+        String x = "Nom";
+
+        int score = 0;
+
+
+        // restablir la puntuacio
+        String[] parametros={x};
+        ContentValues values2 = new ContentValues();
+        values2.put(Utilidades.CAMPO_PLAYER2,score);
+        db.update(Utilidades.TABLA_PUNTUACIO,values2,Utilidades.CAMPO_USUARIO+"=?",parametros);
+
+
+
+        Toast.makeText(getApplicationContext(),"Reset",Toast.LENGTH_LONG).show();
+
+        db.close();
     }
 
     private void getScorePlayers() {
@@ -295,15 +324,10 @@ public class GameActivity extends AppCompatActivity implements View.OnClickListe
             play2.setText(cursor.getString(1));
 
         }catch (Exception e){
-            Toast.makeText(getApplicationContext(),"El documento no existe",Toast.LENGTH_LONG).show();
+            Toast.makeText(getApplicationContext(),"getscorePlayers Error",Toast.LENGTH_LONG).show();
         }
         db.close();
     }
-
-
-
-
-
 
 
 
