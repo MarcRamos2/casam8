@@ -87,10 +87,10 @@ public class GameActivity extends AppCompatActivity implements View.OnClickListe
 
 
         resetScore = (Button) findViewById(R.id.resetScore);
-        restart.setOnClickListener(new View.OnClickListener() {
+        resetScore.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                restartGame();
+                resetScore();
             }
         });
 
@@ -294,6 +294,7 @@ public class GameActivity extends AppCompatActivity implements View.OnClickListe
         int score = 0;
 
         // restablir la puntuacio Payer1
+
         String[] parametros1={x};
 
         ContentValues values1 = new ContentValues();
@@ -302,12 +303,14 @@ public class GameActivity extends AppCompatActivity implements View.OnClickListe
 
 
         // restablir la puntuacio Player2
+
         String[] parametros2={x};
-        
+
         ContentValues values2 = new ContentValues();
         values2.put(Utilidades.CAMPO_PLAYER2,score);
         db.update(Utilidades.TABLA_PUNTUACIO,values2,Utilidades.CAMPO_USUARIO+"=?",parametros2);
 
+        getScorePlayers();
         Toast.makeText(getApplicationContext(),"Reset",Toast.LENGTH_LONG).show();
 
         db.close();
