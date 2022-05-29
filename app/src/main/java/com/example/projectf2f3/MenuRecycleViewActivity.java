@@ -17,6 +17,7 @@ import com.example.projectf2f3.entitades.Usuario;
 
 import java.util.ArrayList;
 
+// Main Menu Recycle View
 public class MenuRecycleViewActivity extends AppCompatActivity {
 
     ArrayList<MenuVo> listaMenu;
@@ -24,6 +25,8 @@ public class MenuRecycleViewActivity extends AppCompatActivity {
 
     ConexionSQLiteHelper conn;
     boolean mboolean = false;
+
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -33,10 +36,11 @@ public class MenuRecycleViewActivity extends AppCompatActivity {
 
         listaMenu=new ArrayList<>();
 
-        // Aixo fa que nomes faci un cop l'insert quan instale la aplicacio
+        // Això fa que només feu una vegada l'insert quan instal·leu l'aplicació
         SharedPreferences settings = getSharedPreferences("PREFS_NAME", 0);
         mboolean = settings.getBoolean("FIRST_RUN", false);
-        if (!mboolean) {
+        if (!mboolean)
+        {
             InsertMenu();
 
             settings = getSharedPreferences("PREFS_NAME", 0);
@@ -48,14 +52,14 @@ public class MenuRecycleViewActivity extends AppCompatActivity {
         recycler= (RecyclerView) findViewById(R.id.recycleID);
         recycler.setLayoutManager(new LinearLayoutManager(this));
 
-        llenarMenu();
+        omplirMenu();
 
         AdapterDatos adapter=new AdapterDatos(listaMenu);
         recycler.setAdapter(adapter);
 
     }
 
-    private void llenarMenu() {
+    private void omplirMenu() {
 
         SQLiteDatabase db=conn.getReadableDatabase();
 
@@ -75,6 +79,7 @@ public class MenuRecycleViewActivity extends AppCompatActivity {
         }
     }
 
+    // insertar dades a Base de dades SQL
     private void InsertMenu() {
 
         SQLiteDatabase db = conn.getWritableDatabase();

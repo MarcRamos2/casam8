@@ -8,6 +8,19 @@ public class GameInfo implements Serializable {
     private Integer Player1;
     private Integer Player2;
 
+    // constructor
+
+    public GameInfo(String user, Integer player1, Integer player2) {
+        User = user;
+        Player1 = player1;
+        Player2 = player2;
+    }
+
+    public GameInfo() {
+
+    }
+
+    // getter i setter
     public String getUser() {
         return User;
     }
@@ -32,15 +45,8 @@ public class GameInfo implements Serializable {
         Player2 = player2;
     }
 
-    public GameInfo(String user, Integer player1, Integer player2) {
-        User = user;
-        Player1 = player1;
-        Player2 = player2;
-    }
 
-    public GameInfo() {
 
-    }
 
 
 }

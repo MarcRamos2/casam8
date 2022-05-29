@@ -16,17 +16,19 @@ import com.example.projectf2f3.Utilidades.Utilidades;
 
 public class MainActivity extends AppCompatActivity {
 
+    // Register User Activity
+
     EditText campoEmail,campoUser,campoPassword,repassword;
     Button btnSingUp, btnSignIn;
 
-    ConexionSQLiteHelper conn;
+    ConexionSQLiteHelper conn; // connexio a base de dades per guardar les dades del usuari
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
 
-        conn=new ConexionSQLiteHelper(getApplicationContext(),"User_Database",null,1);
+        conn = new ConexionSQLiteHelper(getApplicationContext(),"User_Database",null,1);
 
         campoUser = (EditText) findViewById(R.id.user);
         campoEmail = (EditText) findViewById(R.id.email);
@@ -45,6 +47,7 @@ public class MainActivity extends AppCompatActivity {
                 String pass = campoPassword.getText().toString();
                 String repass = repassword.getText().toString();
 
+                // si els edittext estan buits llavors mostrar missatge
                 if (user.equals("") || email.equals("") || pass.equals("") || repass.equals("") )
                 {
                     Toast.makeText(MainActivity.this, "Fill all the Fields.", Toast.LENGTH_SHORT).show();
@@ -85,15 +88,19 @@ public class MainActivity extends AppCompatActivity {
             }
         });
 
+        // si l'usuari ja esta registrart i vol entrar el seu compte
         btnSignIn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
 
                 Intent intent = new Intent(getApplicationContext(),LoginActivity.class);
                 startActivity(intent);
+
             }
         });
     }
+
+    // netejar els edittexts despres de registrar
     private void limpiar() {
         campoUser.setText("");
         campoEmail.setText("");

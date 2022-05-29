@@ -14,11 +14,14 @@ import com.squareup.picasso.Picasso;
 import java.util.ArrayList;
 public class AdapterDatos extends RecyclerView.Adapter<AdapterDatos.ViewHolderDatos> {
 
-    ArrayList<MenuVo> listaMenu;
+    // Recycle View
+
+    ArrayList<MenuVo> listaMenu; // Array de menus
 
     public AdapterDatos(ArrayList<MenuVo> listaUsuario) {
         this.listaMenu = listaUsuario;
     }
+
 
     @Override
     public ViewHolderDatos onCreateViewHolder( ViewGroup parent, int viewType) {
@@ -26,6 +29,7 @@ public class AdapterDatos extends RecyclerView.Adapter<AdapterDatos.ViewHolderDa
         return new ViewHolderDatos(view);
     }
 
+    // mostrar el text i la imatge a Recyclerview agafant desdes base de dades
     @Override
     public void onBindViewHolder( ViewHolderDatos holder, int position) {
         holder.ElNombre.setText(listaMenu.get(position).getNombre());
@@ -33,16 +37,18 @@ public class AdapterDatos extends RecyclerView.Adapter<AdapterDatos.ViewHolderDa
         holder.ElPrecio.setText(listaMenu.get(position).getPrecio());
 
         String urla = listaMenu.get(position).getFoto();
-
-        Picasso.get().load(urla).into(holder.mAnimeImageView);
+        Picasso.get().load(urla).into(holder.mAnimeImageView); //convertir un enllaç en imatge
 
     }
 
+    // tamany de la lista
     @Override
     public int getItemCount() {
         return listaMenu.size();
     }
 
+
+    // mantenir dades
     public class ViewHolderDatos extends RecyclerView.ViewHolder {
 
         TextView ElNombre, LaDescripcion, ElPrecio;

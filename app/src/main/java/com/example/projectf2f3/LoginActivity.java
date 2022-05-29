@@ -15,6 +15,8 @@ import com.example.projectf2f3.Utilidades.Utilidades;
 
 public class LoginActivity extends AppCompatActivity {
 
+    // Login Activity
+
     EditText username, password;
     Button btnLogin;
 
@@ -39,26 +41,26 @@ public class LoginActivity extends AppCompatActivity {
                 String user = username.getText().toString();
                 String pass = password.getText().toString();
 
+                // si l'usuari no entrat cap dada no fer res i mostra el missatge
                 if (user.equals("") || pass.equals(""))
                 {
-                    Toast.makeText(LoginActivity.this, "Please enter the Credentials.", Toast.LENGTH_SHORT).show();
+                    Toast.makeText(LoginActivity.this, "Fill all the Fields.", Toast.LENGTH_SHORT).show();
                 }
                 else
                 {
-                    Boolean result = checkusernamePassword(user,pass);
+                    Boolean result = checkusernamePassword(user,pass); // Comprovar si existeix el user amb el email i password entrart
 
                     if(result == true)
                     {
+                        // si tot va bé entrem a l'aplicació
                         Intent intent = new Intent(getApplicationContext(), PrincipalActivity.class);
                         startActivity(intent);
                     }
                     else
                     {
-                        Toast.makeText(LoginActivity.this, "Invalid Credential.", Toast.LENGTH_SHORT).show();
+                        Toast.makeText(LoginActivity.this, "Invalid Data.", Toast.LENGTH_SHORT).show();
                     }
                 }
-
-
             }
         });
     }
@@ -67,12 +69,14 @@ public class LoginActivity extends AppCompatActivity {
     // Comprovar si existeix el user amb el email i password entrart
     public Boolean checkusernamePassword(String username,String password)
     {
-        SQLiteDatabase db = conn.getWritableDatabase();
+        SQLiteDatabase db = conn.getWritableDatabase(); // conexio a bd
 
+        // consulta a base de dades
         Cursor cursor=db.rawQuery("SELECT " +Utilidades.CAMPO_NOMBRE+
         " FROM " +Utilidades.TABLA_USUARIO+ " WHERE " + Utilidades.CAMPO_EMAIL+ "=?" +
                 " AND " + Utilidades.CAMPO_PASSWORD+ " = ? " ,new String[] {username,password});
 
+        // retornar true o false
         if (cursor.getCount() > 0)
         {
             return true;

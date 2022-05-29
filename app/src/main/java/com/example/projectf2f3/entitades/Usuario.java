@@ -2,12 +2,14 @@ package com.example.projectf2f3.entitades;
 
 import java.io.Serializable;
 
+// Usuario que li guardem el nom, correu , i contrasenya
 public class Usuario implements Serializable {
 
     private String user;
     private String email;
     private String password;
 
+    // Constructor
     public Usuario(String user, String email, String password) {
         this.user = user;
         this.email = email;
@@ -17,6 +19,8 @@ public class Usuario implements Serializable {
      public Usuario() {
 
      }
+
+     // getter i setter
 
     public String getUser() {
         return user;

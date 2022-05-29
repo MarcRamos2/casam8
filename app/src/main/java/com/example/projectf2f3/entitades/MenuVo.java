@@ -2,6 +2,8 @@ package com.example.projectf2f3.entitades;
 
 import java.io.Serializable;
 
+
+// els productes que tindrem al restaurant guardarem nom, descripcio, preu i la foto
 public class MenuVo  implements Serializable {
 
     private String Nombre;
@@ -9,6 +11,7 @@ public class MenuVo  implements Serializable {
     private String Precio;
     private String foto;
 
+    // construtor
     public MenuVo(String nombre, String descripcion, String precio, String foto) {
         this.Nombre = nombre;
         this.Descripcion = descripcion;
@@ -19,6 +22,8 @@ public class MenuVo  implements Serializable {
     public MenuVo() {
 
     }
+
+    // getter i setter
 
     public String getNombre() {
         return Nombre;

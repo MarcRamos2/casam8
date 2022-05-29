@@ -7,6 +7,8 @@ import android.os.Bundle;
 import android.view.View;
 import android.widget.Button;
 
+// Aquesta Activity basicament el que fa es obrir altres activty
+// depenent del botó que premem
 public class PrincipalActivity extends AppCompatActivity {
 
     Button btna, btnb,btnc,btnd,btne;
@@ -30,7 +32,7 @@ public class PrincipalActivity extends AppCompatActivity {
             }
         });
 
-        // ORDER
+        // ORDER(Comanda)
         btnb.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {

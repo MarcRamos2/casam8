@@ -22,32 +22,28 @@ import android.widget.Toast;
 
 import com.example.projectf2f3.Utilidades.Utilidades;
 
-
+// Un simple Joc Tic Tac Toe
 public class GameActivity extends AppCompatActivity implements View.OnClickListener {
 
     Button btn0, btn1, btn2, btn3, btn4, btn5, btn6, btn7, btn8;
-    TextView headerText;
-    TextView play1,play2;
+    Button buttonPlay, restart, resetScore;
+    TextView headerText,play1,play2;
     MediaPlayer player;
     Animation play;
-    Button buttonPlay, restart, resetScore;
 
     public boolean musicatorn = false ;
-
-    int PLAYER_O = 0;
-    int PLAYER_X = 1;
-
-    String nom = "Nom";
-    int punts = 0;
-
-    int activePlayer = PLAYER_O;
-
-    ConexionSQLiteHelper conn;
-
-    int[] filledPos = {-1, -1, -1, -1, -1, -1, -1, -1, -1};
-
     boolean isGameActive = true;
     boolean mboolean = false;
+
+    int[] filledPos = {-1, -1, -1, -1, -1, -1, -1, -1, -1};
+    int PLAYER_O = 0;
+    int PLAYER_X = 1;
+    int punts = 0;
+    int activePlayer = PLAYER_O;
+
+    String nom = "Nom";
+
+    ConexionSQLiteHelper conn;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -65,8 +61,11 @@ public class GameActivity extends AppCompatActivity implements View.OnClickListe
         // Variable bool que controla el torn de la musica
         // Iniciem amb false
         musicatorn = false;
-        getScorePlayers();
-        // Aixo fa que nomes faci un cop l'insert quan instale la aplicacio
+
+        getScorePlayers(); // Agafar la puntuaci de base de dades si l'usuari ha juagt abans, carrgar les puntuacions
+
+
+        // Això fa que només feu una vegada l'insert dels productes quan instal·leu l'aplicació
         SharedPreferences settings = getSharedPreferences("PREFS_NAME", 0);
         mboolean = settings.getBoolean("FIRST_RUN", false);
         if (!mboolean) {
@@ -77,6 +76,7 @@ public class GameActivity extends AppCompatActivity implements View.OnClickListe
             editor.commit();
         }
 
+        // fer click per tornar a jugar el joc
         restart = (Button) findViewById(R.id.restart);
         restart.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -85,7 +85,7 @@ public class GameActivity extends AppCompatActivity implements View.OnClickListe
             }
         });
 
-
+        // Tornar a começa de nou amb puntuacio zero / zero
         resetScore = (Button) findViewById(R.id.resetScore);
         resetScore.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -94,6 +94,7 @@ public class GameActivity extends AppCompatActivity implements View.OnClickListe
             }
         });
 
+        // Reproduir la musica
         buttonPlay = findViewById(R.id.playmusic);
         buttonPlay.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -223,45 +224,46 @@ public class GameActivity extends AppCompatActivity implements View.OnClickListe
 
     }
 
+    // Fer un insert en las base de dades amb el nom del usuari entrart amb puntuacio 0 als dos jugadors
     private void InsertPointsP1() {
         SQLiteDatabase db = conn.getWritableDatabase();
 
         ContentValues values=new ContentValues();
-        values.put(Utilidades.CAMPO_USUARIO,nom);
-        values.put(Utilidades.CAMPO_PLAYER1,punts);
-        values.put(Utilidades.CAMPO_PLAYER2,punts);
+        values.put(Utilidades.CAMPO_USUARIO,nom); // nom
+        values.put(Utilidades.CAMPO_PLAYER1,punts); // puntuacio 0 player 1
+        values.put(Utilidades.CAMPO_PLAYER2,punts); // puntuacio 0 player 2
 
-        db.insert(Utilidades.TABLA_PUNTUACIO, null, values);
-
-
-        Toast.makeText(getApplicationContext(),"Ya se creo la puntuación",Toast.LENGTH_LONG).show();
-
+        db.insert(Utilidades.TABLA_PUNTUACIO, null, values); // insert
         db.close();
     }
 
+    // Si el jugador 1 ha guanyat doncs fer un insert de 100 punts en la bases de dades
     private void actualizarPointsPlayer1() {
 
-        SQLiteDatabase db = conn.getWritableDatabase();
+        SQLiteDatabase db = conn.getWritableDatabase(); // connexió
 
-        String x = "Nom";
+        String x = "Nom"; // nom del usuari
 
-        String value = play1.getText().toString();
-        int scor = Integer.parseInt(value);
+        // el que fem es mirar quina puntuacio te actualmente i sumarlo 100 punts i guardar en BD.
 
-        int score1 = scor + 100;
+        String value = play1.getText().toString(); // // Agafar el valor que tenim en textview i sumar 100
+        int scor = Integer.parseInt(value); // convert string to int
 
-        String[] parametros={x};
+        int score1 = scor + 100; // sumar actual + 100
+
+        String[] parametros={x}; // actualitzar la fila de bases de dade x
 
         ContentValues values=new ContentValues();
         values.put(Utilidades.CAMPO_PLAYER1,score1);
 
-        db.update(Utilidades.TABLA_PUNTUACIO,values,Utilidades.CAMPO_USUARIO+"=?",parametros);
+        db.update(Utilidades.TABLA_PUNTUACIO,values,Utilidades.CAMPO_USUARIO+"=?",parametros); // un update a la taula del joc
 
-        Toast.makeText(getApplicationContext(),"Ya se actualizó el usuario",Toast.LENGTH_LONG).show();
+        Toast.makeText(getApplicationContext(),"Player 1: +100 Points",Toast.LENGTH_LONG).show();
 
         db.close();
     }
 
+    // Si el jugador 2 ha guanyat doncs fer un insert de 100 punts en la bases de dades
     private void actualizarPointsPlayer2() {
 
         SQLiteDatabase db = conn.getWritableDatabase();
@@ -278,13 +280,14 @@ public class GameActivity extends AppCompatActivity implements View.OnClickListe
         ContentValues values=new ContentValues();
         values.put(Utilidades.CAMPO_PLAYER2,score2);
 
-        db.update(Utilidades.TABLA_PUNTUACIO,values,Utilidades.CAMPO_USUARIO+"=?",parametros);
+        db.update(Utilidades.TABLA_PUNTUACIO,values,Utilidades.CAMPO_USUARIO+"=?",parametros); // un update a la taula del joc
 
-        Toast.makeText(getApplicationContext(),"Ya se actualizó el usuario",Toast.LENGTH_LONG).show();
+        Toast.makeText(getApplicationContext(),"Player 2: +100 Points",Toast.LENGTH_LONG).show();
 
         db.close();
     }
 
+    // restablir la puntuació dels jugadors
     private void resetScore() {
 
         SQLiteDatabase db = conn.getWritableDatabase();
@@ -293,7 +296,7 @@ public class GameActivity extends AppCompatActivity implements View.OnClickListe
 
         int score = 0;
 
-        // restablir la puntuacio Payer1
+        // restablir la puntuacio Player1
 
         String[] parametros1={x};
 
@@ -316,6 +319,7 @@ public class GameActivity extends AppCompatActivity implements View.OnClickListe
         db.close();
     }
 
+    // obtenir la puntuació de l'usuari
     private void getScorePlayers() {
 
         SQLiteDatabase db=conn.getReadableDatabase();
@@ -338,8 +342,7 @@ public class GameActivity extends AppCompatActivity implements View.OnClickListe
         db.close();
     }
 
-
-
+    // Mostrar el dialogie amb el restart er tornar a jugar si un dels jugadors ha guanyat
     private void showDialog(String winnerText) {
         new AlertDialog.Builder(this)
                 .setTitle(winnerText)
