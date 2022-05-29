@@ -131,6 +131,31 @@
             tools:layout_editor_absoluteX="178dp"
             tools:layout_editor_absoluteY="39dp" />
 
+        <EditText
+            android:id="@+id/ply1"
+            android:layout_width="282dp"
+            android:layout_height="55dp"
+            android:hint="0"
+            android:text="0"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintHorizontal_bias="0.578"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent"
+            app:layout_constraintVertical_bias="0.164" />
+
+        <EditText
+            android:id="@+id/ply2"
+            android:layout_width="282dp"
+            android:layout_height="55dp"
+            android:hint="0"
+            android:text="0"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintHorizontal_bias="0.578"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent"
+            app:layout_constraintVertical_bias="0.164" />
 
 
 

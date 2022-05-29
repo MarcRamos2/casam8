@@ -26,10 +26,11 @@ public class GameActivity extends AppCompatActivity implements View.OnClickListe
 
     Button btn0, btn1, btn2, btn3, btn4, btn5, btn6, btn7, btn8;
     TextView headerText;
-
+    EditText play1,play2;
     MediaPlayer player;
     Animation play;
     Button buttonPlay;
+
     public boolean musicatorn = false ;
 
     int PLAYER_O = 0;
@@ -37,7 +38,6 @@ public class GameActivity extends AppCompatActivity implements View.OnClickListe
 
     String nom = "Nom";
     int punts = 0;
-    int score = 100;
 
     int activePlayer = PLAYER_O;
 
@@ -52,6 +52,8 @@ public class GameActivity extends AppCompatActivity implements View.OnClickListe
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_game);
 
+        play1= (EditText) findViewById(R.id.ply1);
+        play2= (EditText) findViewById(R.id.ply2);
 
         conn = new ConexionSQLiteHelper(getApplicationContext(),"User_Database",null,1);
 
@@ -182,8 +184,8 @@ public class GameActivity extends AppCompatActivity implements View.OnClickListe
                     if (filledPos[val0] == PLAYER_O){
                         showDialog("O is winner");
 
-                        int scor = getScorePlayer1();
                         actualizarPointsPlayer1();
+                        getScorePlayer1();
 
                     }
 
@@ -191,6 +193,7 @@ public class GameActivity extends AppCompatActivity implements View.OnClickListe
                         showDialog("X is winner");
 
                         actualizarPointsPlayer2();
+                        getScorePlayer1();
 
                     }
                 }
@@ -218,14 +221,19 @@ public class GameActivity extends AppCompatActivity implements View.OnClickListe
 
     private void actualizarPointsPlayer1() {
 
+        SQLiteDatabase db = conn.getWritableDatabase();
+
         String x = "Nom";
 
-        SQLiteDatabase db = conn.getWritableDatabase();
+        String value = play1.getText().toString();
+        int scor = Integer.parseInt(value);
+
+        int score1 = scor + 100;
 
         String[] parametros={x};
 
         ContentValues values=new ContentValues();
-        values.put(Utilidades.CAMPO_PLAYER1,score);
+        values.put(Utilidades.CAMPO_PLAYER1,score1);
 
         db.update(Utilidades.TABLA_PUNTUACIO,values,Utilidades.CAMPO_USUARIO+"=?",parametros);
 
@@ -237,14 +245,19 @@ public class GameActivity extends AppCompatActivity implements View.OnClickListe
 
     private void actualizarPointsPlayer2() {
 
+        SQLiteDatabase db = conn.getWritableDatabase();
+
         String x = "Nom";
 
-        SQLiteDatabase db = conn.getWritableDatabase();
+        String value = play2.getText().toString();
+        int scor = Integer.parseInt(value);
+
+        int score2 = scor + 100;
 
         String[] parametros={x};
 
         ContentValues values=new ContentValues();
-        values.put(Utilidades.CAMPO_PLAYER2,score);
+        values.put(Utilidades.CAMPO_PLAYER2,score2);
 
         db.update(Utilidades.TABLA_PUNTUACIO,values,Utilidades.CAMPO_USUARIO+"=?",parametros);
 
@@ -254,25 +267,24 @@ public class GameActivity extends AppCompatActivity implements View.OnClickListe
 
     }
 
-    private void consultarSql() {
+    private void getScorePlayer1() {
+
         SQLiteDatabase db=conn.getReadableDatabase();
 
         String x = "Nom";
-        
+
         String[] parametros={x};
 
         try {
-            Cursor cursor=db.rawQuery("SELECT " +Utilidades.CAMPO_NOMBRE_GAME+"  ,  "+Utilidades.CAMPO_Puntuacion+
-                    " FROM "+Utilidades.TABLA_PUNTUACIO+" WHERE "+Utilidades.CAMPO_ID+ "=? ",parametros);
+            Cursor cursor=db.rawQuery("SELECT " +Utilidades.CAMPO_PLAYER1+"  ,  "+Utilidades.CAMPO_PLAYER2+
+                    " FROM "+Utilidades.TABLA_PUNTUACIO+" WHERE "+Utilidades.CAMPO_USUARIO+ "=? ",parametros);
 
             cursor.moveToFirst();
-            campoNombre.setText(cursor.getString(0));
-            campPuntuacion.setText(cursor.getString(1));
+            play1.setText(cursor.getString(0));
+            play2.setText(cursor.getString(1));
 
         }catch (Exception e){
             Toast.makeText(getApplicationContext(),"El documento no existe",Toast.LENGTH_LONG).show();
-            limpiar();
-
         }
         db.close();
     }
