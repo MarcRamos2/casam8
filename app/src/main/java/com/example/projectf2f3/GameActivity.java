@@ -26,10 +26,10 @@ public class GameActivity extends AppCompatActivity implements View.OnClickListe
 
     Button btn0, btn1, btn2, btn3, btn4, btn5, btn6, btn7, btn8;
     TextView headerText;
-    EditText play1,play2;
+    TextView play1,play2;
     MediaPlayer player;
     Animation play;
-    Button buttonPlay;
+    Button buttonPlay,getPreviousRecord;
 
     public boolean musicatorn = false ;
 
@@ -52,8 +52,8 @@ public class GameActivity extends AppCompatActivity implements View.OnClickListe
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_game);
 
-        play1= (EditText) findViewById(R.id.ply1);
-        play2= (EditText) findViewById(R.id.ply2);
+        play1= (TextView) findViewById(R.id.ply1);
+        play2= (TextView) findViewById(R.id.ply2);
 
         conn = new ConexionSQLiteHelper(getApplicationContext(),"User_Database",null,1);
 
@@ -65,6 +65,14 @@ public class GameActivity extends AppCompatActivity implements View.OnClickListe
         musicatorn = false;
 
         InsertPointsP1();
+
+        getPreviousRecord = (Button) findViewById(R.id.getPreviousRecord);
+        getPreviousRecord.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                getScorePlayers();
+            }
+        });
 
         buttonPlay = findViewById(R.id.playmusic);
         buttonPlay.setOnClickListener(new View.OnClickListener() {
@@ -83,10 +91,6 @@ public class GameActivity extends AppCompatActivity implements View.OnClickListe
                     musicatorn = false;
                     MusicControl(musicatorn);
                 }
-
-
-
-
 
             }
         });
@@ -118,8 +122,6 @@ public class GameActivity extends AppCompatActivity implements View.OnClickListe
         btn6.setOnClickListener(this);
         btn7.setOnClickListener(this);
         btn8.setOnClickListener(this);
-
-
     }
 
     @Override
@@ -185,7 +187,7 @@ public class GameActivity extends AppCompatActivity implements View.OnClickListe
                         showDialog("O is winner");
 
                         actualizarPointsPlayer1();
-                        getScorePlayer1();
+                        getScorePlayers();
 
                     }
 
@@ -193,7 +195,7 @@ public class GameActivity extends AppCompatActivity implements View.OnClickListe
                         showDialog("X is winner");
 
                         actualizarPointsPlayer2();
-                        getScorePlayer1();
+                        getScorePlayers();
 
                     }
                 }
@@ -240,7 +242,6 @@ public class GameActivity extends AppCompatActivity implements View.OnClickListe
         Toast.makeText(getApplicationContext(),"Ya se actualizó el usuario",Toast.LENGTH_LONG).show();
 
         db.close();
-
     }
 
     private void actualizarPointsPlayer2() {
@@ -267,7 +268,7 @@ public class GameActivity extends AppCompatActivity implements View.OnClickListe
 
     }
 
-    private void getScorePlayer1() {
+    private void getScorePlayers() {
 
         SQLiteDatabase db=conn.getReadableDatabase();
 
@@ -288,6 +289,7 @@ public class GameActivity extends AppCompatActivity implements View.OnClickListe
         }
         db.close();
     }
+
 
 
 

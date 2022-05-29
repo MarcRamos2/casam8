@@ -7,157 +7,222 @@
     tools:context=".GameActivity">
 
     <TextView
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
         android:id="@+id/header_text"
+        android:layout_width="match_parent"
+        android:layout_height="70dp"
         android:gravity="center_horizontal"
+        android:text="My Tictactoe"
         android:textSize="20sp"
-        android:textStyle="bold"
-        android:text="My Tictactoe"/>
+        android:textStyle="bold" />
+
+    <Button
+        android:id="@+id/playmusic"
+        android:layout_width="wrap_content"
+        android:layout_height="73dp"
+        android:background="@android:drawable/ic_lock_silent_mode_off"
+        tools:layout_editor_absoluteX="178dp"
+        tools:layout_editor_absoluteY="39dp" />
+
 
     <LinearLayout
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
+        android:layout_height="526dp"
         android:layout_below="@id/header_text"
+        android:layout_marginTop="0dp"
         android:orientation="vertical">
+
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:orientation="horizontal"
-            android:gravity="center">
+            android:gravity="center"
+            android:orientation="horizontal">
+
             <Button
+                android:id="@+id/btn0"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_margin="8dp"
-                android:id="@+id/btn0"
+                android:background="@android:color/darker_gray"
                 android:tag="0"
                 android:textSize="60sp"
-                android:background="@android:color/darker_gray"
-                tools:text="0"/>
+                tools:text="0" />
+
             <Button
+                android:id="@+id/btn1"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_margin="8dp"
-                android:id="@+id/btn1"
+                android:background="@android:color/darker_gray"
                 android:tag="1"
                 android:textSize="60sp"
-                android:background="@android:color/darker_gray"
-                tools:text="1"/>
+                tools:text="1" />
+
             <Button
+                android:id="@+id/btn2"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_margin="8dp"
-                android:id="@+id/btn2"
+                android:background="@android:color/darker_gray"
                 android:tag="2"
                 android:textSize="60sp"
-                android:background="@android:color/darker_gray"
-                tools:text="2"/>
+                tools:text="2" />
 
         </LinearLayout>
+
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:orientation="horizontal"
-            android:gravity="center">
+            android:gravity="center"
+            android:orientation="horizontal">
+
             <Button
+                android:id="@+id/btn3"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_margin="8dp"
-                android:id="@+id/btn3"
+                android:background="@android:color/darker_gray"
                 android:tag="3"
                 android:textSize="60sp"
-                android:background="@android:color/darker_gray"
-                tools:text="3"/>
+                tools:text="3" />
+
             <Button
+                android:id="@+id/btn4"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_margin="8dp"
-                android:id="@+id/btn4"
+                android:background="@android:color/darker_gray"
                 android:tag="4"
                 android:textSize="60sp"
-                android:background="@android:color/darker_gray"
-                tools:text="4"/>
+                tools:text="4" />
+
             <Button
+                android:id="@+id/btn5"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_margin="8dp"
-                android:id="@+id/btn5"
+                android:background="@android:color/darker_gray"
                 android:tag="5"
                 android:textSize="60sp"
-                android:background="@android:color/darker_gray"
-                tools:text="5"/>
+                tools:text="5" />
 
         </LinearLayout>
+
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:orientation="horizontal"
-            android:gravity="center">
+            android:gravity="center"
+            android:orientation="horizontal">
+
             <Button
+                android:id="@+id/btn6"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_margin="8dp"
-                android:id="@+id/btn6"
+                android:background="@android:color/darker_gray"
                 android:tag="6"
                 android:textSize="60sp"
-                android:background="@android:color/darker_gray"
-                tools:text="6"/>
+                tools:text="6" />
+
             <Button
+                android:id="@+id/btn7"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_margin="8dp"
-                android:id="@+id/btn7"
+                android:background="@android:color/darker_gray"
                 android:tag="7"
                 android:textSize="60sp"
-                android:background="@android:color/darker_gray"
-                tools:text="7"/>
+                tools:text="7" />
+
             <Button
+                android:id="@+id/btn8"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_margin="8dp"
-                android:id="@+id/btn8"
+                android:background="@android:color/darker_gray"
                 android:tag="8"
                 android:textSize="60sp"
-                android:background="@android:color/darker_gray"
-                tools:text="8"/>
+                tools:text="8" />
 
 
         </LinearLayout>
-        <Button
-            android:id="@+id/playmusic"
-            android:layout_width="wrap_content"
+
+        <LinearLayout
+            android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:background="@android:drawable/ic_lock_silent_mode_off"
-            tools:layout_editor_absoluteX="178dp"
-            tools:layout_editor_absoluteY="39dp" />
+            android:gravity="center"
+            android:orientation="horizontal">
 
-        <EditText
-            android:id="@+id/ply1"
-            android:layout_width="282dp"
-            android:layout_height="55dp"
-            android:hint="0"
-            android:text="0"
-            app:layout_constraintBottom_toBottomOf="parent"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintHorizontal_bias="0.578"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toTopOf="parent"
-            app:layout_constraintVertical_bias="0.164" />
+            <TextView
+                android:id="@+id/pay1"
+                android:layout_width="150dp"
+                android:layout_height="55dp"
+                android:text="Player O:"
+                android:textSize="34sp"
+                android:textStyle="bold"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintHorizontal_bias="0.578"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="parent"
+                app:layout_constraintVertical_bias="0.164" />
 
-        <EditText
-            android:id="@+id/ply2"
-            android:layout_width="282dp"
-            android:layout_height="55dp"
-            android:hint="0"
-            android:text="0"
-            app:layout_constraintBottom_toBottomOf="parent"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintHorizontal_bias="0.578"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toTopOf="parent"
-            app:layout_constraintVertical_bias="0.164" />
+            <TextView
+                android:id="@+id/ply1"
+                android:layout_width="150dp"
+                android:layout_height="55dp"
+                android:text="0"
+                android:textSize="34sp"
+                android:textStyle="bold"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintHorizontal_bias="0.578"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="parent"
+                app:layout_constraintVertical_bias="0.164" />
 
+        </LinearLayout>
 
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:gravity="center"
+            android:orientation="horizontal">
+
+            <TextView
+                android:id="@+id/pay2"
+                android:layout_width="150dp"
+                android:layout_height="match_parent"
+                android:text="Player X:"
+                android:textSize="34sp"
+                android:textStyle="bold"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintHorizontal_bias="0.578"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="parent"
+                app:layout_constraintVertical_bias="0.164" />
+
+            <TextView
+                android:id="@+id/ply2"
+                android:layout_width="150dp"
+                android:layout_height="55dp"
+                android:text="0"
+                android:textSize="34sp"
+                android:textStyle="bold"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintHorizontal_bias="0.578"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="parent"
+                app:layout_constraintVertical_bias="0.164" />
+
+        </LinearLayout>
+
+        <Button
+            android:id="@+id/getPreviousRecord"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="Recuperar les últimes puntuacions" />
 
     </LinearLayout>
 
