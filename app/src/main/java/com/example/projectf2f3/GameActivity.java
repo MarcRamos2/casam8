@@ -34,8 +34,8 @@ public class GameActivity extends AppCompatActivity implements View.OnClickListe
     int PLAYER_O = 0;
     int PLAYER_X = 1;
 
-    String nom = "masass";
-    int punts = 100;
+    String nom = "Nom";
+    int punts = 0;
 
     int activePlayer = PLAYER_O;
 
@@ -50,6 +50,9 @@ public class GameActivity extends AppCompatActivity implements View.OnClickListe
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_game);
 
+
+        conn = new ConexionSQLiteHelper(getApplicationContext(),"User_Database",null,1);
+
         // Variable MediaPlayer on guardem la musica
         player = MediaPlayer.create(getApplicationContext(), R.raw.musicadefons);
 
@@ -57,6 +60,7 @@ public class GameActivity extends AppCompatActivity implements View.OnClickListe
         // Iniciem amb false
         musicatorn = false;
 
+        InsertPointsP1();
 
         buttonPlay = findViewById(R.id.playmusic);
         buttonPlay.setOnClickListener(new View.OnClickListener() {
@@ -143,15 +147,12 @@ public class GameActivity extends AppCompatActivity implements View.OnClickListe
         }
 
         checkForWin();
-
     }
 
     public void MusicControl(boolean musicatorn){
         if(musicatorn){
             player.start();
             buttonPlay.startAnimation(play);
-
-
 
         }else{
             player.pause();
@@ -176,24 +177,20 @@ public class GameActivity extends AppCompatActivity implements View.OnClickListe
 
                     isGameActive = false;
 
-
                     if (filledPos[val0] == PLAYER_O){
                         showDialog("O is winner");
-                        }
-
-
-
-
+                    }
 
                     else {
                         showDialog("X is winner");
-                        }
+                    }
                 }
             }
         }
 
 
     }
+
     private void InsertPointsP1() {
         SQLiteDatabase db = conn.getWritableDatabase();
 
@@ -201,7 +198,6 @@ public class GameActivity extends AppCompatActivity implements View.OnClickListe
         values.put(Utilidades.CAMPO_USUARIO,nom);
         values.put(Utilidades.CAMPO_PLAYER1,punts);
         values.put(Utilidades.CAMPO_PLAYER2,punts);
-
 
         db.insert(Utilidades.TABLA_PUNTUACIO, null, values);
 
