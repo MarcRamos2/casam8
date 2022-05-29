@@ -7,6 +7,7 @@ import androidx.appcompat.app.AlertDialog;
 
 import android.content.ContentValues;
 import android.content.DialogInterface;
+import android.content.SharedPreferences;
 import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
 import android.media.MediaPlayer;
@@ -46,6 +47,7 @@ public class GameActivity extends AppCompatActivity implements View.OnClickListe
     int[] filledPos = {-1, -1, -1, -1, -1, -1, -1, -1, -1};
 
     boolean isGameActive = true;
+    boolean mboolean = false;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -64,7 +66,17 @@ public class GameActivity extends AppCompatActivity implements View.OnClickListe
         // Iniciem amb false
         musicatorn = false;
 
-        InsertPointsP1();
+
+        // Aixo fa que nomes faci un cop l'insert quan instale la aplicacio
+        SharedPreferences settings = getSharedPreferences("PREFS_NAME", 0);
+        mboolean = settings.getBoolean("FIRST_RUN", false);
+        if (!mboolean) {
+            InsertPointsP1();
+            settings = getSharedPreferences("PREFS_NAME", 0);
+            SharedPreferences.Editor editor = settings.edit();
+            editor.putBoolean("FIRST_RUN", true);
+            editor.commit();
+        }
 
         getPreviousRecord = (Button) findViewById(R.id.getPreviousRecord);
         getPreviousRecord.setOnClickListener(new View.OnClickListener() {
@@ -100,8 +112,6 @@ public class GameActivity extends AppCompatActivity implements View.OnClickListe
 
         headerText = findViewById(R.id.header_text);
         headerText.setText("O turn");
-
-
 
         btn0 = findViewById(R.id.btn0);
         btn1 = findViewById(R.id.btn1);

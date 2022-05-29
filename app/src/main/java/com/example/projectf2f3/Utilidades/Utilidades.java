@@ -31,7 +31,6 @@ public class Utilidades {
     // Constantes Tabla Game
     public static final String TABLA_PUNTUACIO = "UserPuntuacion";  // Table
 
-    public static final String CAMPO_ID = "User_ID";
     public static final String CAMPO_USUARIO = "User_Name";
     public static final String CAMPO_PLAYER1= "PLAYER1";
     public static final String CAMPO_PLAYER2 = "PLAYER2";
