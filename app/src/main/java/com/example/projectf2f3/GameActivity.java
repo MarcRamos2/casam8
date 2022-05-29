@@ -7,6 +7,7 @@ import androidx.appcompat.app.AlertDialog;
 
 import android.content.ContentValues;
 import android.content.DialogInterface;
+import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
 import android.media.MediaPlayer;
 import android.os.Bundle;
@@ -36,6 +37,7 @@ public class GameActivity extends AppCompatActivity implements View.OnClickListe
 
     String nom = "Nom";
     int punts = 0;
+    int score = 100;
 
     int activePlayer = PLAYER_O;
 
@@ -179,10 +181,17 @@ public class GameActivity extends AppCompatActivity implements View.OnClickListe
 
                     if (filledPos[val0] == PLAYER_O){
                         showDialog("O is winner");
+
+                        int scor = getScorePlayer1();
+                        actualizarPointsPlayer1();
+
                     }
 
                     else {
                         showDialog("X is winner");
+
+                        actualizarPointsPlayer2();
+
                     }
                 }
             }
@@ -202,11 +211,77 @@ public class GameActivity extends AppCompatActivity implements View.OnClickListe
         db.insert(Utilidades.TABLA_PUNTUACIO, null, values);
 
 
-        Toast.makeText(getApplicationContext(),"Ya se actualizó la puntuación",Toast.LENGTH_LONG).show();
+        Toast.makeText(getApplicationContext(),"Ya se creo la puntuación",Toast.LENGTH_LONG).show();
+
+        db.close();
+    }
+
+    private void actualizarPointsPlayer1() {
+
+        String x = "Nom";
+
+        SQLiteDatabase db = conn.getWritableDatabase();
+
+        String[] parametros={x};
+
+        ContentValues values=new ContentValues();
+        values.put(Utilidades.CAMPO_PLAYER1,score);
+
+        db.update(Utilidades.TABLA_PUNTUACIO,values,Utilidades.CAMPO_USUARIO+"=?",parametros);
+
+        Toast.makeText(getApplicationContext(),"Ya se actualizó el usuario",Toast.LENGTH_LONG).show();
 
         db.close();
 
     }
+
+    private void actualizarPointsPlayer2() {
+
+        String x = "Nom";
+
+        SQLiteDatabase db = conn.getWritableDatabase();
+
+        String[] parametros={x};
+
+        ContentValues values=new ContentValues();
+        values.put(Utilidades.CAMPO_PLAYER2,score);
+
+        db.update(Utilidades.TABLA_PUNTUACIO,values,Utilidades.CAMPO_USUARIO+"=?",parametros);
+
+        Toast.makeText(getApplicationContext(),"Ya se actualizó el usuario",Toast.LENGTH_LONG).show();
+
+        db.close();
+
+    }
+
+    private void consultarSql() {
+        SQLiteDatabase db=conn.getReadableDatabase();
+
+        String x = "Nom";
+        
+        String[] parametros={x};
+
+        try {
+            Cursor cursor=db.rawQuery("SELECT " +Utilidades.CAMPO_NOMBRE_GAME+"  ,  "+Utilidades.CAMPO_Puntuacion+
+                    " FROM "+Utilidades.TABLA_PUNTUACIO+" WHERE "+Utilidades.CAMPO_ID+ "=? ",parametros);
+
+            cursor.moveToFirst();
+            campoNombre.setText(cursor.getString(0));
+            campPuntuacion.setText(cursor.getString(1));
+
+        }catch (Exception e){
+            Toast.makeText(getApplicationContext(),"El documento no existe",Toast.LENGTH_LONG).show();
+            limpiar();
+
+        }
+        db.close();
+    }
+
+
+
+
+
+
 
     private void showDialog(String winnerText) {
         new AlertDialog.Builder(this)
