@@ -2,7 +2,7 @@ package com.example.projectf2f3.entitades;
 
 import java.io.Serializable;
 
-public class GameInfo implements Serializable {
+public class Game implements Serializable {
 
     private String User;
     private Integer Player1;
@@ -10,13 +10,13 @@ public class GameInfo implements Serializable {
 
     // constructor
 
-    public GameInfo(String user, Integer player1, Integer player2) {
+    public Game(String user, Integer player1, Integer player2) {
         User = user;
         Player1 = player1;
         Player2 = player2;
     }
 
-    public GameInfo() {
+    public Game() {
 
     }
 

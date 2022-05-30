@@ -26,7 +26,7 @@
 
     <LinearLayout
         android:layout_width="match_parent"
-        android:layout_height="484dp"
+        android:layout_height="553dp"
         android:layout_below="@id/header_text"
         android:layout_marginTop="15dp"
         android:orientation="vertical">
@@ -178,9 +178,9 @@
                 android:id="@+id/pay1"
                 android:layout_width="wrap_content"
                 android:layout_height="match_parent"
+                android:layout_margin="3dp"
                 android:text="Player O:"
                 android:textSize="25dp"
-                android:layout_margin="3dp"
                 android:textStyle="bold"
                 app:layout_constraintBottom_toBottomOf="parent"
                 app:layout_constraintEnd_toEndOf="parent"
@@ -193,8 +193,8 @@
                 android:id="@+id/ply1"
                 android:layout_width="73dp"
                 android:layout_height="match_parent"
-                android:text="0"
                 android:layout_margin="3dp"
+                android:text="0"
                 android:textSize="25dp"
                 android:textStyle="bold"
                 app:layout_constraintBottom_toBottomOf="parent"
@@ -215,9 +215,9 @@
                 android:id="@+id/pay2"
                 android:layout_width="wrap_content"
                 android:layout_height="match_parent"
+                android:layout_margin="3dp"
                 android:text="Player X:"
                 android:textSize="25dp"
-                android:layout_margin="3dp"
                 android:textStyle="bold"
                 app:layout_constraintBottom_toBottomOf="parent"
                 app:layout_constraintEnd_toEndOf="parent"
@@ -230,8 +230,8 @@
                 android:id="@+id/ply2"
                 android:layout_width="130dp"
                 android:layout_height="match_parent"
-                android:text="0"
                 android:layout_margin="3dp"
+                android:text="0"
                 android:textSize="25dp"
                 android:textStyle="bold"
                 app:layout_constraintBottom_toBottomOf="parent"
@@ -241,6 +241,43 @@
                 app:layout_constraintTop_toTopOf="parent"
                 app:layout_constraintVertical_bias="0.164" />
 
+        </LinearLayout>
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:gravity="left"
+            android:orientation="horizontal">
+
+            <TextView
+                android:id="@+id/username"
+                android:layout_width="130dp"
+                android:layout_height="match_parent"
+                android:layout_margin="3dp"
+                android:text="UserName"
+                android:textSize="25dp"
+                android:textStyle="bold"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintHorizontal_bias="0.578"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="parent"
+                app:layout_constraintVertical_bias="0.164" />
+
+            <TextView
+                android:id="@+id/useremail"
+                android:layout_width="130dp"
+                android:layout_height="match_parent"
+                android:layout_margin="3dp"
+                android:text="UserEmail"
+                android:textSize="25dp"
+                android:textStyle="bold"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintHorizontal_bias="0.578"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="parent"
+                app:layout_constraintVertical_bias="0.164" />
         </LinearLayout>
 
     </LinearLayout>

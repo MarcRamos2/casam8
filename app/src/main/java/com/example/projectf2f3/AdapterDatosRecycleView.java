@@ -8,21 +8,21 @@ import android.widget.TextView;
 import androidx.recyclerview.widget.RecyclerView;
 import com.squareup.picasso.Picasso;
 
-import com.example.projectf2f3.entitades.MenuVo;
-import com.squareup.picasso.Picasso;
+import com.example.projectf2f3.entitades.Menu;
 
 import java.util.ArrayList;
-public class AdapterDatos extends RecyclerView.Adapter<AdapterDatos.ViewHolderDatos> {
+public class AdapterDatosRecycleView extends RecyclerView.Adapter<AdapterDatosRecycleView.ViewHolderDatos> {
 
     // Recycle View
 
-    ArrayList<MenuVo> listaMenu; // Array de menus
+    ArrayList<Menu> listaMenu; // Array de menus
 
-    public AdapterDatos(ArrayList<MenuVo> listaUsuario) {
+    public AdapterDatosRecycleView(ArrayList<Menu> listaUsuario) {
         this.listaMenu = listaUsuario;
     }
 
 
+    // enllaçar aquest adaptador amb el item list.xaml
     @Override
     public ViewHolderDatos onCreateViewHolder( ViewGroup parent, int viewType) {
         View view = LayoutInflater.from(parent.getContext()).inflate(R.layout.item_list, parent, false);
@@ -48,7 +48,7 @@ public class AdapterDatos extends RecyclerView.Adapter<AdapterDatos.ViewHolderDa
     }
 
 
-    // mantenir dades
+    // mantenir i cridar les id
     public class ViewHolderDatos extends RecyclerView.ViewHolder {
 
         TextView ElNombre, LaDescripcion, ElPrecio;
@@ -60,8 +60,6 @@ public class AdapterDatos extends RecyclerView.Adapter<AdapterDatos.ViewHolderDa
             LaDescripcion = (TextView) itemView.findViewById(R.id.idDescipcion);
             ElPrecio = (TextView) itemView.findViewById(R.id.idPrecio);
             mAnimeImageView = (ImageView) itemView.findViewById(R.id.idImagen);
-
-
         }
     }
 }

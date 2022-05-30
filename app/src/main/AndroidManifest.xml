@@ -22,7 +22,7 @@
             android:name=".GameActivity"
             android:exported="false" />
         <activity
-            android:name=".PrincipalActivity"
+            android:name=".MainActivity"
             android:exported="false" />
         <activity
             android:name=".MenuRecycleViewActivity"
@@ -31,7 +31,7 @@
             android:name=".LoginActivity"
             android:exported="false" />
         <activity
-            android:name=".MainActivity"
+            android:name=".RegisterActivity"
             android:exported="true" >
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />

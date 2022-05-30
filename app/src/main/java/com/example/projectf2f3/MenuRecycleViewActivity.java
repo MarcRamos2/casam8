@@ -5,22 +5,19 @@ import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
 import android.content.ContentValues;
-import android.content.SharedPreferences;
 import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
 import android.os.Bundle;
-import android.widget.Toast;
 
 import com.example.projectf2f3.Utilidades.Utilidades;
-import com.example.projectf2f3.entitades.MenuVo;
-import com.example.projectf2f3.entitades.Usuario;
+import com.example.projectf2f3.entitades.Menu;
 
 import java.util.ArrayList;
 
 // Main Menu Recycle View
 public class MenuRecycleViewActivity extends AppCompatActivity {
 
-    ArrayList<MenuVo> listaMenu;
+    ArrayList<Menu> listaMenu;
     RecyclerView recycler;
 
     ConexionSQLiteHelper conn;
@@ -34,10 +31,10 @@ public class MenuRecycleViewActivity extends AppCompatActivity {
 
         conn=new ConexionSQLiteHelper(getApplicationContext(),"User_Database",null,1);
 
-        listaMenu=new ArrayList<>();
+        listaMenu = new ArrayList<>();
         InsertMenu();
 
-        // Això fa que només feu una vegada l'insert quan instal·leu l'aplicació
+        // Això fa que només faci una vegada l'insert quan instal·leu l'aplicació
         /**
          SharedPreferences settings = getSharedPreferences("PREFS_NAME", 0);
         mboolean = settings.getBoolean("FIRST_RUN", false);
@@ -51,26 +48,27 @@ public class MenuRecycleViewActivity extends AppCompatActivity {
             editor.commit();
         }
         */
-        recycler= (RecyclerView) findViewById(R.id.recycleID);
+
+        recycler = (RecyclerView) findViewById(R.id.recycleID);
         recycler.setLayoutManager(new LinearLayoutManager(this));
 
         omplirMenu();
 
-        AdapterDatos adapter=new AdapterDatos(listaMenu);
+        AdapterDatosRecycleView adapter = new AdapterDatosRecycleView(listaMenu);
         recycler.setAdapter(adapter);
 
     }
 
     private void omplirMenu() {
 
-        SQLiteDatabase db=conn.getReadableDatabase();
+        SQLiteDatabase db = conn.getReadableDatabase();
 
-        MenuVo menu = null;
+        Menu menu = null;
 
         Cursor cursor=db.rawQuery("SELECT * FROM "+ Utilidades.TABLA_MENU,null);
 
         while (cursor.moveToNext()){
-            menu = new MenuVo();
+            menu = new Menu();
 
             menu.setNombre(cursor.getString(0));
             menu.setDescripcion(cursor.getString(1));
@@ -104,32 +102,32 @@ public class MenuRecycleViewActivity extends AppCompatActivity {
 
         v2.put(Utilidades.CAMPO_NOMBRE_MENU,"Pizza");
         v2.put(Utilidades.CAMPO_DESCRIP_MENU,"Pizza bla bla bla ");
-        v2.put(Utilidades.CAMPO_PRICE_MENU,"5€");
+        v2.put(Utilidades.CAMPO_PRICE_MENU,"10€");
         v2.put(Utilidades.CAMPO_FOTO_MENU,"https://w6h5a5r4.rocketcdn.me/wp-content/uploads/2019/06/pizza-con-chorizo-y-verduras-1080x671.jpg");
 
         v3.put(Utilidades.CAMPO_NOMBRE_MENU,"Coca Cola");
         v3.put(Utilidades.CAMPO_DESCRIP_MENU,"Coca Cola bla bla bla");
-        v3.put(Utilidades.CAMPO_PRICE_MENU,"10€");
+        v3.put(Utilidades.CAMPO_PRICE_MENU,"2€");
         v3.put(Utilidades.CAMPO_FOTO_MENU,"https://mcdonalds.es/api/cms/images/mcdonalds-es/5b6931a9-76d3-4f32-a446-e8f26e8d3a69_producto-237.png?auto=compress,format");
 
         v4.put(Utilidades.CAMPO_NOMBRE_MENU,"7Up");
         v4.put(Utilidades.CAMPO_DESCRIP_MENU,"7Up bla bla bla");
-        v4.put(Utilidades.CAMPO_PRICE_MENU,"5€");
+        v4.put(Utilidades.CAMPO_PRICE_MENU,"2€");
         v4.put(Utilidades.CAMPO_FOTO_MENU,"https://assets.tuzonamarket.com/images/producto/huhmDnIIQE.jpg");
 
         v5.put(Utilidades.CAMPO_NOMBRE_MENU,"Water");
         v5.put(Utilidades.CAMPO_DESCRIP_MENU,"Water bla bla bla");
-        v5.put(Utilidades.CAMPO_PRICE_MENU,"5€");
+        v5.put(Utilidades.CAMPO_PRICE_MENU,"2€");
         v5.put(Utilidades.CAMPO_FOTO_MENU,"https://mcdonalds.es/api/cms/images/mcdonalds-es/52cb6a85-a601-4993-8711-de79538c9a0c_producto-78.png?auto=compress,format");
 
         v6.put(Utilidades.CAMPO_NOMBRE_MENU,"Ice Cream");
         v6.put(Utilidades.CAMPO_DESCRIP_MENU,"Ice Cream bla bla bla");
-        v6.put(Utilidades.CAMPO_PRICE_MENU,"10€");
+        v6.put(Utilidades.CAMPO_PRICE_MENU,"6€");
         v6.put(Utilidades.CAMPO_FOTO_MENU,"https://mcdonalds.es/api/cms/images/mcdonalds-es/6020f509-5485-48a0-b428-0fba8389d2bb_2b35038a0877ef087c9d501d1df67c1c.png?auto=compress,format");
 
         v7.put(Utilidades.CAMPO_NOMBRE_MENU,"Chicken");
         v7.put(Utilidades.CAMPO_DESCRIP_MENU,"Chicken bla bla bla");
-        v7.put(Utilidades.CAMPO_PRICE_MENU,"10€");
+        v7.put(Utilidades.CAMPO_PRICE_MENU,"20€");
         v7.put(Utilidades.CAMPO_FOTO_MENU,"https://tmbidigitalassetsazure.blob.core.windows.net/rms3-prod/attachments/37/1200x1200/Crispy-Fried-Chicken_EXPS_TOHJJ22_6445_DR%20_02_03_11b.jpg");
 
         v8.put(Utilidades.CAMPO_NOMBRE_MENU,"Chips");

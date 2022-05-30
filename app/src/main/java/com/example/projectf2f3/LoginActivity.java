@@ -41,6 +41,8 @@ public class LoginActivity extends AppCompatActivity {
                 String user = username.getText().toString();
                 String pass = password.getText().toString();
 
+                String usernam = getIntent().getStringExtra("nameuserA");
+
                 // si l'usuari no entrat cap dada no fer res i mostra el missatge
                 if (user.equals("") || pass.equals(""))
                 {
@@ -53,7 +55,9 @@ public class LoginActivity extends AppCompatActivity {
                     if(result == true)
                     {
                         // si tot va bé entrem a l'aplicació
-                        Intent intent = new Intent(getApplicationContext(), PrincipalActivity.class);
+                        Intent intent = new Intent(getApplicationContext(), MainActivity.class);
+                        intent.putExtra("nameuserB",usernam); // enviem el user a game activity per fe una consulta
+
                         startActivity(intent);
                     }
                     else

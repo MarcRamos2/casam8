@@ -4,7 +4,7 @@ import java.io.Serializable;
 
 
 // els productes que tindrem al restaurant guardarem nom, descripcio, preu i la foto
-public class MenuVo  implements Serializable {
+public class Menu implements Serializable {
 
     private String Nombre;
     private String Descripcion;
@@ -12,14 +12,14 @@ public class MenuVo  implements Serializable {
     private String foto;
 
     // construtor
-    public MenuVo(String nombre, String descripcion, String precio, String foto) {
+    public Menu(String nombre, String descripcion, String precio, String foto) {
         this.Nombre = nombre;
         this.Descripcion = descripcion;
         this.Precio = precio;
         this.foto = foto;
     }
 
-    public MenuVo() {
+    public Menu() {
 
     }
 

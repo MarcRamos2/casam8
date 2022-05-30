@@ -27,7 +27,7 @@ public class GameActivity extends AppCompatActivity implements View.OnClickListe
 
     Button btn0, btn1, btn2, btn3, btn4, btn5, btn6, btn7, btn8;
     Button buttonPlay, restart, resetScore;
-    TextView headerText,play1,play2;
+    TextView headerText,play1,play2,username,useremail;
     MediaPlayer player;
     Animation play;
 
@@ -44,7 +44,7 @@ public class GameActivity extends AppCompatActivity implements View.OnClickListe
     int punts = 0;
     int activePlayer = PLAYER_O; // jugar sempre el jugado O
 
-    String nom = "Nom";
+    public String nom;
 
     ConexionSQLiteHelper conn;
 
@@ -55,6 +55,8 @@ public class GameActivity extends AppCompatActivity implements View.OnClickListe
 
         play1= (TextView) findViewById(R.id.ply1);
         play2= (TextView) findViewById(R.id.ply2);
+        username= (TextView) findViewById(R.id.username);
+        useremail= (TextView) findViewById(R.id.useremail);
 
         conn = new ConexionSQLiteHelper(getApplicationContext(),"User_Database",null,1);
 
@@ -65,8 +67,12 @@ public class GameActivity extends AppCompatActivity implements View.OnClickListe
         // Iniciem amb false
         musicatorn = false;
 
-        getScorePlayers(); // Agafar la puntuaci de base de dades si l'usuari ha juagt abans, carrgar les puntuacions
+        // nom del usuari entrat amb intent, guardarem en bases de dades
+        String userna = getIntent().getStringExtra("nameuserC");
+        nom = userna;
 
+        getScorePlayers(); // Agafar la puntuaci de base de dades si l'usuari ha juagt abans, carrgar les puntuacions
+        getUserEmail(); // nom i email del usuari
 
         // Això fa que només feu una vegada l'insert dels productes quan instal·leu l'aplicació
         SharedPreferences settings = getSharedPreferences("PREFS_NAME", 0);
@@ -252,7 +258,7 @@ public class GameActivity extends AppCompatActivity implements View.OnClickListe
 
         SQLiteDatabase db = conn.getWritableDatabase(); // connexió
 
-        String x = "Nom"; // nom del usuari
+
 
         // el que fem es mirar quina puntuacio te actualmente i sumarlo 100 punts i guardar en BD.
 
@@ -261,7 +267,7 @@ public class GameActivity extends AppCompatActivity implements View.OnClickListe
 
         int score1 = scor + 100; // sumar actual + 100
 
-        String[] parametros={x}; // actualitzar la fila de bases de dade x
+        String[] parametros={nom}; // actualitzar la fila de bases de dade x
 
         ContentValues values=new ContentValues();
         values.put(Utilidades.CAMPO_PLAYER1,score1);
@@ -278,14 +284,12 @@ public class GameActivity extends AppCompatActivity implements View.OnClickListe
 
         SQLiteDatabase db = conn.getWritableDatabase();
 
-        String x = "Nom";
-
         String value = play2.getText().toString();
         int scor = Integer.parseInt(value);
 
         int score2 = scor + 100;
 
-        String[] parametros={x};
+        String[] parametros={nom};
 
         ContentValues values=new ContentValues();
         values.put(Utilidades.CAMPO_PLAYER2,score2);
@@ -302,13 +306,11 @@ public class GameActivity extends AppCompatActivity implements View.OnClickListe
 
         SQLiteDatabase db = conn.getWritableDatabase();
 
-        String x = "Nom";
-
         int score = 0;
 
         // restablir la puntuacio Player1
 
-        String[] parametros1={x};
+        String[] parametros1={nom};
 
         ContentValues values1 = new ContentValues();
         values1.put(Utilidades.CAMPO_PLAYER1,score);
@@ -317,7 +319,7 @@ public class GameActivity extends AppCompatActivity implements View.OnClickListe
 
         // restablir la puntuacio Player2
 
-        String[] parametros2={x};
+        String[] parametros2={nom};
 
         ContentValues values2 = new ContentValues();
         values2.put(Utilidades.CAMPO_PLAYER2,score);
@@ -329,14 +331,12 @@ public class GameActivity extends AppCompatActivity implements View.OnClickListe
         db.close();
     }
 
-    // obtenir la puntuació de l'usuari
+    // obtenir la puntuació dels  usuaris
     private void getScorePlayers() {
 
         SQLiteDatabase db=conn.getReadableDatabase();
 
-        String x = "Nom";
-
-        String[] parametros={x};
+        String[] parametros={nom};
 
         try {
             Cursor cursor=db.rawQuery("SELECT " +Utilidades.CAMPO_PLAYER1+"  ,  "+Utilidades.CAMPO_PLAYER2+
@@ -351,6 +351,27 @@ public class GameActivity extends AppCompatActivity implements View.OnClickListe
         }
         db.close();
     }
+
+    // obtenir el nom del user i email.
+    private void getUserEmail() {
+
+        SQLiteDatabase db=conn.getReadableDatabase();
+
+        String[] parametros={nom};
+        try {
+            Cursor cursor=db.rawQuery("SELECT " +Utilidades.CAMPO_NOMBRE+"  ,  "+Utilidades.CAMPO_EMAIL+
+                    " FROM "+Utilidades.TABLA_USUARIO+" WHERE "+Utilidades.CAMPO_NOMBRE+ "=? ",parametros);
+
+            cursor.moveToFirst();
+            username.setText(cursor.getString(0));
+            useremail.setText(cursor.getString(1));
+
+        }catch (Exception e){
+            Toast.makeText(getApplicationContext(),"Get user Name Email Error",Toast.LENGTH_LONG).show();
+        }
+        db.close();
+    }
+
 
     // Mostrar el dialogie amb el restart er tornar a jugar si un dels jugadors ha guanyat
     private void showDialog(String winnerText) {
