@@ -35,9 +35,11 @@ public class MenuRecycleViewActivity extends AppCompatActivity {
         conn=new ConexionSQLiteHelper(getApplicationContext(),"User_Database",null,1);
 
         listaMenu=new ArrayList<>();
+        InsertMenu();
 
         // Això fa que només feu una vegada l'insert quan instal·leu l'aplicació
-        SharedPreferences settings = getSharedPreferences("PREFS_NAME", 0);
+        /**
+         SharedPreferences settings = getSharedPreferences("PREFS_NAME", 0);
         mboolean = settings.getBoolean("FIRST_RUN", false);
         if (!mboolean)
         {
@@ -48,7 +50,7 @@ public class MenuRecycleViewActivity extends AppCompatActivity {
             editor.putBoolean("FIRST_RUN", true);
             editor.commit();
         }
-
+        */
         recycler= (RecyclerView) findViewById(R.id.recycleID);
         recycler.setLayoutManager(new LinearLayoutManager(this));
 
