@@ -14,6 +14,9 @@ import android.widget.Toast;
 
 import com.example.projectf2f3.Utilidades.Utilidades;
 
+import java.util.regex.Matcher;
+import java.util.regex.Pattern;
+
 public class MainActivity extends AppCompatActivity {
 
     // Register User Activity
@@ -46,6 +49,9 @@ public class MainActivity extends AppCompatActivity {
                 String email = campoEmail.getText().toString();
                 String pass = campoPassword.getText().toString();
                 String repass = repassword.getText().toString();
+                boolean isValid = false;
+
+                isValid = isEmailValid(email); // Validem el gmail
 
                 // si els edittext estan buits llavors mostrar missatge
                 if (user.equals("") || email.equals("") || pass.equals("") || repass.equals("") )
@@ -54,36 +60,46 @@ public class MainActivity extends AppCompatActivity {
                 }
                 else
                 {
-                    if(pass.equals(repass))
+                    // Si es valid i té més de 5 caracters tan el gmail com la passwd inciem l'activity
+                        if(isValid == true && email.length() >= 5 && pass.length() >= 5)
                     {
-                        Boolean usercheckResult = CheckUserEmail(email); // funcion si existeix el email
-
-                        if(!usercheckResult) // no existeix
+                        if(pass.equals(repass))
                         {
-                            Boolean regResult = InsertUser(user, email ,pass); // funcio si s'ha insertat correctamente l'usuari
+                            Boolean usercheckResult = CheckUserEmail(email); // funcion si existeix el email
 
-                            if(regResult) //si
+                            if(!usercheckResult) // no existeix
                             {
-                                Toast.makeText(MainActivity.this, "Resgistration Successful.", Toast.LENGTH_SHORT).show();
-                                limpiar();
-                                Intent intent = new Intent(getApplicationContext(),LoginActivity.class);
-                                startActivity(intent);
-                            }
-                            else // no
-                            {
-                                Toast.makeText(MainActivity.this, "Resgistration failed.", Toast.LENGTH_SHORT).show();
-                            }
+                                Boolean regResult = InsertUser(user, email ,pass); // funcio si s'ha insertat correctamente l'usuari
 
-                        } // ja existeix email
+                                if(regResult) //si
+                                {
+                                    Toast.makeText(MainActivity.this, "Resgistration Successful.", Toast.LENGTH_SHORT).show();
+                                    limpiar();
+                                    Intent intent = new Intent(getApplicationContext(),LoginActivity.class);
+                                    startActivity(intent);
+                                }
+                                else // no
+                                {
+                                    Toast.makeText(MainActivity.this, "Resgistration failed.", Toast.LENGTH_SHORT).show();
+                                }
+
+                            } // ja existeix email
+                            else
+                            {
+                                Toast.makeText(MainActivity.this, "User Email already Exist. \n Please Sign In", Toast.LENGTH_SHORT).show();
+                            }
+                        }
                         else
                         {
-                            Toast.makeText(MainActivity.this, "User Email already Exist. \n Please Sign In", Toast.LENGTH_SHORT).show();
+                            Toast.makeText(MainActivity.this, "Password not Matching.", Toast.LENGTH_SHORT).show();
                         }
                     }
                     else
                     {
-                        Toast.makeText(MainActivity.this, "Password not Matching.", Toast.LENGTH_SHORT).show();
+                        Toast.makeText(MainActivity.this, "Email Incorrect Form.", Toast.LENGTH_SHORT).show();
+
                     }
+
                 }
             }
         });
@@ -98,6 +114,20 @@ public class MainActivity extends AppCompatActivity {
 
             }
         });
+    }
+
+    public static boolean isEmailValid(String email) {
+        boolean isValid = false;
+
+        String expression = "^[\\w\\.-]+@([\\w\\-]+\\.)+[A-Z]{2,4}$";
+        CharSequence inputStr = email;
+
+        Pattern pattern = Pattern.compile(expression, Pattern.CASE_INSENSITIVE);
+        Matcher matcher = pattern.matcher(inputStr);
+        if (matcher.matches()) {
+            isValid = true;
+        }
+        return isValid;
     }
 
     // netejar els edittexts despres de registrar
