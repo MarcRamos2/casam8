@@ -71,9 +71,9 @@ public class GameActivity extends AppCompatActivity implements View.OnClickListe
         String userna = getIntent().getStringExtra("nameuserC");
         nom = userna;
 
-        getScorePlayers(); // Agafar la puntuaci de base de dades si l'usuari ha juagt abans, carrgar les puntuacions
         getUserEmail(); // nom i email del usuari
 
+        /**
         // Això fa que només feu una vegada l'insert dels productes quan instal·leu l'aplicació
         SharedPreferences settings = getSharedPreferences("PREFS_NAME", 0);
         mboolean = settings.getBoolean("FIRST_RUN", false);
@@ -84,19 +84,16 @@ public class GameActivity extends AppCompatActivity implements View.OnClickListe
             editor.putBoolean("FIRST_RUN", true);
             editor.commit();
         }
+        */
 
-        //
-        //
-        //
-        // si el usuari existe no hacer insert si no exite hacer insert
-        String usernamedatabse = " ";
-
-        if(userna == usernamedatabse){
-            return;
-        }
-        else {
+        String nomexist = username.getText().toString();
+        if(nom == nomexist){
+            getScorePlayers(); // Agafar la puntuaci de base de dades si l'usuari ha juagt abans, carrgar les puntuacions
+        }else{
             InsertPointsP1();
         }
+
+
         // fer click per tornar a jugar el joc
         restart = (Button) findViewById(R.id.restart);
         restart.setOnClickListener(new View.OnClickListener() {
@@ -379,7 +376,7 @@ public class GameActivity extends AppCompatActivity implements View.OnClickListe
             useremail.setText(cursor.getString(1));
 
         }catch (Exception e){
-            Toast.makeText(getApplicationContext(),"Get user Name Email Error",Toast.LENGTH_LONG).show();
+            // Toast.makeText(getApplicationContext(),"Get user Name Email Error",Toast.LENGTH_LONG).show();
         }
         db.close();
     }

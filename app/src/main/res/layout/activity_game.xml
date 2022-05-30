@@ -251,7 +251,7 @@
 
             <TextView
                 android:id="@+id/username"
-                android:layout_width="130dp"
+                android:layout_width="147dp"
                 android:layout_height="match_parent"
                 android:layout_margin="3dp"
                 android:text="UserName"
@@ -266,11 +266,11 @@
 
             <TextView
                 android:id="@+id/useremail"
-                android:layout_width="130dp"
+                android:layout_width="253dp"
                 android:layout_height="match_parent"
                 android:layout_margin="3dp"
                 android:text="UserEmail"
-                android:textSize="25dp"
+                android:textSize="20sp"
                 android:textStyle="bold"
                 app:layout_constraintBottom_toBottomOf="parent"
                 app:layout_constraintEnd_toEndOf="parent"
