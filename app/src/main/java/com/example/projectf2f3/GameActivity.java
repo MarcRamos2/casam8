@@ -35,11 +35,14 @@ public class GameActivity extends AppCompatActivity implements View.OnClickListe
     boolean isGameActive = true;
     boolean mboolean = false;
 
-    int[] filledPos = {-1, -1, -1, -1, -1, -1, -1, -1, -1};
+    int[] filledPos = {-1, -1, -1, -1, -1, -1, -1, -1, -1}; // en principi totes les posicions no estan clicats iaxo cambiara per 0 o 1 amb l'ajuda del tag
+
+    // aixo fem per saber quin jugador esta jugant
     int PLAYER_O = 0;
     int PLAYER_X = 1;
+
     int punts = 0;
-    int activePlayer = PLAYER_O;
+    int activePlayer = PLAYER_O; // jugar sempre el jugado O
 
     String nom = "Nom";
 
@@ -132,6 +135,7 @@ public class GameActivity extends AppCompatActivity implements View.OnClickListe
         btn7 = findViewById(R.id.btn7);
         btn8 = findViewById(R.id.btn8);
 
+
         btn0.setOnClickListener(this);
         btn1.setOnClickListener(this);
         btn2.setOnClickListener(this);
@@ -150,9 +154,10 @@ public class GameActivity extends AppCompatActivity implements View.OnClickListe
         if (!isGameActive)
             return;
 
-        Button clickedBtn = findViewById(v.getId());
-        int clickedTag = Integer.parseInt(v.getTag().toString());
+        Button clickedBtn = findViewById(v.getId()); // agafem l'id de qualsevol boto apretat i convertit en boto
+        int clickedTag = Integer.parseInt(v.getTag().toString()); // fem el tag per cambiar els numero de disseny O or X
 
+        // el usuari ha fet click a un lloc que no esta buit(-1) doncs fer return
         if (filledPos[clickedTag] != -1) {
             return;
         }
@@ -161,17 +166,18 @@ public class GameActivity extends AppCompatActivity implements View.OnClickListe
 
         if (activePlayer == PLAYER_O) {
             clickedBtn.setText("O");
-            clickedBtn.setBackground(getDrawable(android.R.color.holo_blue_bright));
-            activePlayer = PLAYER_X;
-            headerText.setText("X turn");
-        } else {
-            clickedBtn.setText("X");
             clickedBtn.setBackground(getDrawable(android.R.color.holo_orange_light));
+            activePlayer = PLAYER_X;
+            headerText.setText("X turn"); // per mostrar en text view a qui li toca
+        }
+        else {
+            clickedBtn.setText("X");
+            clickedBtn.setBackground(getDrawable(android.R.color.holo_blue_light));
             activePlayer = PLAYER_O;
-            headerText.setText("O turn");
+            headerText.setText("O turn"); // per mostrar en text view a qui li toca
         }
 
-        checkForWin();
+        checkForWin(); //comprovarem qui és el guanyador i mostrarem
     }
 
     public void MusicControl(boolean musicatorn){
@@ -188,20 +194,23 @@ public class GameActivity extends AppCompatActivity implements View.OnClickListe
     }
 
     private void checkForWin() {
-        //we will check who is winner and show
+        //comprovarem qui és el guanyador i mostrarem
+        // les posicion possbile que un  jugador surti guanyat
         int[][] winningPos = {{0, 1, 2}, {3, 4, 5}, {6, 7, 8}, {0, 3, 6}, {1, 4, 7}, {2, 5, 8}, {0, 4, 8}, {2, 4, 6}};
 
         for (int i = 0; i < 8; i++) {
-            int val0 = winningPos[i][0];
+            int val0 = winningPos[i][0]; // agafarem un valora i anirem mirant en la posicio si hi ha 3 files iguals
             int val1 = winningPos[i][1];
             int val2 = winningPos[i][2];
 
+            // si 0 1 2 son iguals i hi ha un gunyador pero no sabem quin
             if (filledPos[val0] == filledPos[val1] && filledPos[val1] == filledPos[val2]) {
+
                 if (filledPos[val0] != -1) {
-                    //winner declare
 
-                    isGameActive = false;
+                    isGameActive = false; // No es pugui jugar
 
+                    // si els tres que tenim son 0 ha guanyat O
                     if (filledPos[val0] == PLAYER_O){
                         showDialog("O is winner");
 
@@ -210,6 +219,7 @@ public class GameActivity extends AppCompatActivity implements View.OnClickListe
 
                     }
 
+                    // si els tres que tenim son 1 ha guanyat X
                     else {
                         showDialog("X is winner");
 

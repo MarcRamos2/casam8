@@ -11,7 +11,7 @@
         android:layout_width="match_parent"
         android:layout_height="59dp"
         android:gravity="center_horizontal"
-        android:text="My Tictactoe"
+        android:text="Tictactoe"
         android:textSize="20sp"
         android:textStyle="bold" />
 
