@@ -85,6 +85,18 @@ public class GameActivity extends AppCompatActivity implements View.OnClickListe
             editor.commit();
         }
 
+        //
+        //
+        //
+        // si el usuari existe no hacer insert si no exite hacer insert
+        String usernamedatabse = " ";
+
+        if(userna == usernamedatabse){
+            return;
+        }
+        else {
+            InsertPointsP1();
+        }
         // fer click per tornar a jugar el joc
         restart = (Button) findViewById(R.id.restart);
         restart.setOnClickListener(new View.OnClickListener() {
